@@ -30,12 +30,17 @@ function parse_text($text)
 	{
 		$char = $text[$i];
 		if ($char == "\"")
+		{
 			$quote = !$quote;
+			continue;
+		}
 		if ($char == " " && !$quote)
 		{
 			$ret[] = $word;
 			$word = "";
+			continue;
 		}
+		$word .= $char;
 	}
 	if (!empty($word))
 		$ret[] = $word;
