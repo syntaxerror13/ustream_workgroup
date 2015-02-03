@@ -62,7 +62,7 @@ function parse_text($text)
 
 function webhook_post($url, $text)
 {
-	$data = json_encode(array('payload' => array('text' => $text)));
+	$data = array('payload' => json_encode(array('text' => $text)));
 
 	$ch = curl_init();
 
