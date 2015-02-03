@@ -28,7 +28,7 @@ function parse_text($text)
 	$length = strlen($text);
 	for ($i = 0; $i < $length; $i++)
 	{
-		$char = $length[$i];
+		$char = $text[$i];
 		if ($char == "\"")
 			$quote = !$quote;
 		if ($char == " " && !$quote)
