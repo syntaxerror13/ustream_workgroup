@@ -7,6 +7,7 @@
  */
 
 $token = "xETbF5kv5xhklaHduU95dqle";
+$workgroups_webhook_url = "https://hooks.slack.com/services/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";
 //var_dump($_POST);
 
 if ($token != $_POST['token']) {
@@ -18,7 +19,19 @@ $channel = $_POST['channel_name'];
 $user = $_POST['user_name'];
 
 $args = parse_text($_POST['text']);
-var_dump($args);
+//var_dump($args);
+$command = array_shift($args);
+
+switch ($command)
+{
+	case 'help':
+		break;
+	case 'update':
+		webhook_post($workgroups_webhook_url, "this is a test");
+		break;
+	case 'members':
+		break;
+}
 
 function parse_text($text)
 {
@@ -45,6 +58,22 @@ function parse_text($text)
 	if (!empty($word))
 		$ret[] = $word;
 	return $ret;
+}
+
+function webhook_post($url, $text)
+{
+	$data = json_encode(array('payload' => array('text' => $text)));
+
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+
+	curl_exec($ch);
+
+	curl_close($ch);
 }
 
 ?>
