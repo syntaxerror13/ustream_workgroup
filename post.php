@@ -7,6 +7,39 @@
  */
 
 $token = "xETbF5kv5xhklaHduU95dqle";
-var_dump($_POST);
+//var_dump($_POST);
+
+if ($token != $_POST['token']) {
+	echo "invalid";
+	die;
+}
+
+$channel = $_POST['channel_name'];
+$user = $_POST['user_name'];
+
+$args = parse_text($_POST['text']);
+var_dump($args);
+
+function parse_text($text)
+{
+	$ret = array();
+	$quote = false;
+	$word = "";
+	$length = strlen($text);
+	for ($i = 0; $i < $length; $i++)
+	{
+		$char = $length[$i];
+		if ($char == "\"")
+			$quote = !$quote;
+		if ($char == " " && !$quote)
+		{
+			$ret[] = $word;
+			$word = "";
+		}
+	}
+	if (!empty($word))
+		$ret[] = $word;
+	return $ret;
+}
 
 ?>
