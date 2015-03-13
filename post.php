@@ -6,9 +6,7 @@
  * Time: 10:49
  */
 
-$token = "xETbF5kv5xhklaHduU95dqle";
-$workgroups_webhook_url = "https://hooks.slack.com/services/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";
-//var_dump($_POST);
+require_once('config.php');
 
 if ($token != $_POST['token']) {
 	echo "invalid";
