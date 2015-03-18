@@ -7,6 +7,11 @@
  */
 
 require_once('config.php');
+require_once('slack.php');
+require_once('User.php');
+require_once('Project.php');
+require_once('Event.php');
+
 
 if ($token != $_POST['token']) {
 	echo "invalid";
@@ -25,10 +30,13 @@ switch ($command)
 	case 'help':
 		break;
 	case 'update':
-		webhook_post($workgroups_webhook_url, "this is a test");
+		Slack::send("this is a test", $workgroups_webhook_url);
 		break;
 	case 'members':
 		break;
+	default:
+		echo "unknown command, see help\n";
+		die;
 }
 
 function parse_text($text)
@@ -56,22 +64,6 @@ function parse_text($text)
 	if (!empty($word))
 		$ret[] = $word;
 	return $ret;
-}
-
-function webhook_post($url, $text)
-{
-	$data = array('payload' => json_encode(array('text' => $text)));
-
-	$ch = curl_init();
-
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-
-	curl_exec($ch);
-
-	curl_close($ch);
 }
 
 ?>

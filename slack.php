@@ -26,14 +26,14 @@ class Slack
 		return $output;
 	}
 
-	public static function send($text, $channel = false)
+	public static function send($text, $url, $channel = false)
 	{
 		$payload = array();
 		$payload['text'] = $text;
 		$payload['link_names'] = 1;
 		if ($channel) $payload['channel'] = $channel;
 
-		Slack::httpPost('https://hooks.slack.com/services/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', array('payload' => json_encode($payload)) );
+		Slack::httpPost($url, array('payload' => json_encode($payload)) );
 	}	
 
 }
