@@ -40,13 +40,14 @@ switch ($command)
 		echo <<<EOF
 Welcome to WorkGroups.
 Available commands:
-* start [project name] ["project description"]
+* start [project name] ['project description']
 * join [project name]
 * leave [project name]
 * focus [project name]
 * unfocus [project name]
-* log [project name] ["update message"]
+* log [project name] ['update message']
 * projects
+Note: [x] means a single word parameter, ['x'] is a parameter string in single quotes (')
 EOF;
 
 		break;
@@ -61,7 +62,7 @@ EOF;
 		$desc = array_shift($args);
 		$project = Project::create($name, $desc, $user);
 		echo "Project created\n";
-		$user->joinProject($project);
+//s		$user->joinProject($project);
 		die;
 		break;
 	case 'update':
