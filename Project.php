@@ -26,6 +26,10 @@ class Project {
 		//
 	}
 
+	/**
+	 * return format:
+	 * [{"name" => "Jozsi", "focus" => true},{"name" => "Geza", "focus" => false}]
+	 */
 	public function getMembers() {
 		//
 	}

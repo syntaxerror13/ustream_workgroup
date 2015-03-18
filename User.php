@@ -22,6 +22,10 @@ class User {
 		//
 	}
 
+	/**
+	 * return format:
+	 * [{"name" => "Consul", "focus" => true},{"name" => "Logging", "focus" => false}]
+	 */
 	public function getProjects() {
 		//
 	}
