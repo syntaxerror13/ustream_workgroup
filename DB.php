@@ -35,6 +35,7 @@ class DB {
 		foreach ($params as $pname => $pvalue) {
 			$stmt->bindParam($pname, $pvalue);
 		}
+		$stmt->execute();
 		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		return isset($results[0]) ? $results[0] : null;
 	}
@@ -46,6 +47,7 @@ class DB {
 		foreach ($params as $pname => $pvalue) {
 			$stmt->bindParam($pname, $pvalue);
 		}
+		$stmt->execute();
 		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		return $results;
 	}
