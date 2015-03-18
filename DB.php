@@ -9,14 +9,14 @@
 class DB {
 	private static $instance = null;
 
-	public function __construct($config) {
-		//
-	}
-
 	public static function init($config) {
-		self::$instance = new DB($config);
+		self::$instance = new PDO('mysql:host='.$config['host'].';dbname='.$config['name'].';charset=utf8', $config['user'], $config['pass']);
 	}
 
+	/**
+	 * @param null $config
+	 * @return PDO
+	 */
 	public static function getInstance($config = null) {
 		if (self::$instance != null) {
 			return self::$instance;
@@ -26,5 +26,27 @@ class DB {
 		} else {
 			return null;
 		}
+	}
+
+	public static function getOne($sql, $params = array())
+	{
+		$db = self::getInstance();
+		$stmt = $db->prepare($sql);
+		foreach ($params as $pname => $pvalue) {
+			$stmt->bindParam($pname, $pvalue);
+		}
+		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		return isset($results[0]) ? $results[0] : null;
+	}
+
+	public static function getAll($sql, $params = array())
+	{
+		$db = self::getInstance();
+		$stmt = $db->prepare($sql);
+		foreach ($params as $pname => $pvalue) {
+			$stmt->bindParam($pname, $pvalue);
+		}
+		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		return $results;
 	}
 }

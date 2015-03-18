@@ -12,7 +12,10 @@ class Event {
 	public $user;
 	public $message;
 
-	public static function listAll(Project $project = null) {
-		//
+	public function __construct($time, $project, $user, $message) {
+		$this->time = $time;
+		$this->project = $project;
+		$this->user = $user;
+		$this->message = $message;
 	}
 }
