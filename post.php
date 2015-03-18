@@ -21,12 +21,12 @@ if ($token != $_POST['token']) {
 DB::init($dbconfig);
 
 $channel = $_POST['channel_name'];
-$user = $_POST['user_name'];
+$username = $_POST['user_name'];
 
-$userObj = User::load($user);
-if ($userObj == null) {
-	User::create($user);
-	echo "created user";
+$user = User::load($username);
+if ($user == null) {
+	User::create($username);
+	echo "created user\n";
 	die;
 }
 
@@ -37,6 +37,32 @@ $command = array_shift($args);
 switch ($command)
 {
 	case 'help':
+		echo <<<EOF
+Welcome to WorkGroups.
+Available commands:
+* start [project name] ["project description"]
+* join [project name]
+* leave [project name]
+* focus [project name]
+* unfocus [project name]
+* log [project name] ["update message"]
+* projects
+EOF;
+
+		break;
+	case 'projects':
+		$projects = $user->getProjects();
+		foreach ($projects as $project) {
+			echo $project['name'] . " " . ($project['focus'] ? "focus" : "") . "\n";
+		}
+		break;
+	case 'start':
+		$name = array_shift($args);
+		$desc = array_shift($args);
+		$project = Project::create($name, $desc, $user);
+		echo "Project created\n";
+		$user->joinProject($project);
+		die;
 		break;
 	case 'update':
 		Slack::send("this is a test", $workgroups_webhook_url, "#".$channel);

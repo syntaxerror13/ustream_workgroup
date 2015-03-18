@@ -26,6 +26,16 @@ class Project {
 		}
 	}
 
+	public static function create($name, $desc, $owner) {
+		DB::execute("INSERT INTO wg_project SET project_name = :name, description = :desc, user_name = :owner",
+			array(
+				':name' => $name,
+				':desc' => $desc,
+				':owner' => $owner
+			));
+		return new Project($name, $desc, $owner);
+	}
+
 	/**
 	 * @return array of Project objects
 	 */

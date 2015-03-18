@@ -57,7 +57,11 @@ class User {
 	}
 
 	public function joinProject(Project $project) {
-		//
+		DB::execute("INSERT INTO wg_member SET project_name = :name, user_name = :user, is_focus = 0",
+			array(
+				':name' => $project->name,
+				':user' => $this->name
+			));
 	}
 
 	public function leaveProject(Project $project) {
