@@ -97,6 +97,9 @@ function parse_text($text)
 			$word = "";
 			continue;
 		}
+		if ($char == "\\") {
+			continue;
+		}
 		$word .= $char;
 	}
 	if (!empty($word))
