@@ -39,8 +39,8 @@ class Page
 
 		Page::$title = 'Project '.$p->name;
 
-		$output = '<h2>Project summary</h2><div class="project"><p>'.$p->desc.' <span class="small">by @'.
-			$p->owner.'</span></p></div>';
+		$output = '<h2>Project summary</h2><div class="project"><p>'.$p->desc.'</p><span class="small">by @'.
+			$p->owner.'</span></div>';
 		
 		if (Page::$mocked)
 			$members = array(
@@ -67,6 +67,7 @@ class Page
 		{
 			$output .= '<div class="log"><span class="small">'.$l->time.' <a href="index.php?q=user/'.$l->user.'">'.$l->user.'</a></span><br />'.$l->message.'</div>';
 		}
+		$output .= '<div class="footer"><a href="index.php?q=project">Browse more projects...</a></div>';
 		return $output;
 	}
 
@@ -118,6 +119,7 @@ class Page
 		{
 			$output .= '<div class="project"><a href="index.php?q=project/'.$p['name'].'">'.$p['name'].'</a> '.($p['focus'] ? '[x]' : '').'</div>';
 		}
+		$output .= '<div class="footer"><a href="index.php?q=user">Browse more users...</a></div>';
 		return $output;
 	}
 
@@ -133,7 +135,7 @@ class Page
 		$output = '';
 		foreach ($users as $u)
 		{
-			$output .= '<div class="user"><a href="/index.php?q=user/'.$u->name.'">'.$u->name.'</a></div>';
+			$output .= '<div class="user"><a href="index.php?q=user/'.$u->name.'">'.$u->name.'</a></div>';
 		}
 		return $output;
 	}
