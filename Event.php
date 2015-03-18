@@ -11,4 +11,8 @@ class Event {
 	public $project;
 	public $user;
 	public $message;
+
+	public static function listAll(Project $project = null) {
+		//
+	}
 }

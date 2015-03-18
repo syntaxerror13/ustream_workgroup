@@ -22,6 +22,10 @@ class Project {
 		return new Project($name, $desc, $owner);
 	}
 
+	public static function listAll() {
+		//
+	}
+
 	public function getMembers() {
 		//
 	}

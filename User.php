@@ -18,6 +18,10 @@ class User {
 		return new User($name);
 	}
 
+	public static function listAll() {
+		//
+	}
+
 	public function getProjects() {
 		//
 	}
