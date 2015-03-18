@@ -53,7 +53,19 @@ class User {
 	}
 
 	public function setFocus(Project $project) {
-		//
+		DB::execute("UPDATE wg_member SET is_focus = 1 WHERE project_name = :name AND user_name = :user",
+			array(
+				':name' => $project->name,
+				':user' => $this->name
+			));
+	}
+
+	public function removeFocus(Project $project) {
+		DB::execute("UPDATE wg_member SET is_focus = 0 WHERE project_name = :name AND user_name = :user",
+			array(
+				':name' => $project->name,
+				':user' => $this->name
+			));
 	}
 
 	public function joinProject(Project $project) {
@@ -65,6 +77,10 @@ class User {
 	}
 
 	public function leaveProject(Project $project) {
-		//
+		DB::execute("DELETE FROM wg_member WHERE project_name = :name AND user_name = :user",
+			array(
+				':name' => $project->name,
+				':user' => $this->name
+			));
 	}
 }

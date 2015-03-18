@@ -14,7 +14,7 @@ require_once('Event.php');
 require_once('DB.php');
 
 if ($token != $_POST['token']) {
-	echo "invalid";
+	echo "invalid token\n";
 	die;
 }
 
@@ -33,7 +33,6 @@ if ($user == null) {
 }
 
 $args = parse_text($_POST['text']);
-//var_dump($args);
 $command = array_shift($args);
 
 switch ($command)
@@ -42,13 +41,40 @@ switch ($command)
 		echo <<<EOF
 Welcome to WorkGroups.
 Available commands:
+
 * start [project name] ['project description']
+  Starts a new project with the specified name and description. The current user joins the specified project.
+
 * join [project name]
+  The current user joins the specified project
+
 * leave [project name]
+  The current user leaves the specified project
+
 * focus [project name]
+  The current user sets focus on the specified project
+
 * unfocus [project name]
-* log [project name] ['update message']
+  The current user removes focus from the specified project
+
 * projects
+  Shows the projects where the current user is a member. [*] indicates projects with focus
+
+* details [project name]
+  Shows the details of the specified project:
+  - Name
+  - Description
+  - Owner
+  - Slack room
+  - Latest logged update
+  - Member list. [*] indicates members with focus
+
+* members [project name]
+  Shows the member list of the specified project. [*] indicates members with focus
+
+* log [project name] ['update message']
+  Log an update for the specified project
+
 Note: [x] means a single word parameter, ['x'] is a parameter string in single quotes (')
 EOF;
 
@@ -56,7 +82,7 @@ EOF;
 	case 'projects':
 		$projects = $user->getProjects();
 		foreach ($projects as $project) {
-			echo $project['name'] . " " . ($project['focus'] ? "focus" : "") . "\n";
+			echo $project['name'] . " " . ($project['focus'] ? "[*]" : "") . "\n";
 		}
 		break;
 	case 'start':
@@ -76,10 +102,53 @@ EOF;
 			echo "Joined project " . $projectname . "\n";
 		}
 		break;
-	case 'update':
-		Slack::send("this is a test", $workgroups_webhook_url, "#".$channel);
+	case 'leave':
+		$projectname = array_shift($args);
+		$project = Project::load($projectname);
+		if (empty($project)) {
+			echo "Project does not exist\n";
+		} else {
+			$user->leaveProject($project);
+			echo "Left project " . $projectname . "\n";
+		}
+		break;
+	case 'focus':
+		$projectname = array_shift($args);
+		$project = Project::load($projectname);
+		if (empty($project)) {
+			echo "Project does not exist\n";
+		} else {
+			$user->setFocus($project);
+			echo "Set focus on " . $projectname . "\n";
+		}
+		break;
+	case 'unfocus':
+		$projectname = array_shift($args);
+		$project = Project::load($projectname);
+		if (empty($project)) {
+			echo "Project does not exist\n";
+		} else {
+			$user->removeFocus($project);
+			echo "Removed focus from " . $projectname . "\n";
+		}
+		break;
+	case 'details':
+		echo "not implemented\n";
 		break;
 	case 'members':
+		$projectname = array_shift($args);
+		$project = Project::load($projectname);
+		if (empty($project)) {
+			echo "Project does not exist\n";
+		} else {
+			$members = $project->getMembers();
+			foreach ($members as $member) {
+				echo $member['name'] . " " . ($member['focus'] ? "[*]" : "") . "\n";
+			}
+		}
+		break;
+	case 'log':
+		Slack::send("this is a test", $workgroups_webhook_url, "#".$channel);
 		break;
 	default:
 		echo "unknown command, see help\n";
