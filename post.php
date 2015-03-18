@@ -18,6 +18,8 @@ if ($token != $_POST['token']) {
 	die;
 }
 
+DB::init($dbconfig);
+
 $channel = $_POST['channel_name'];
 $user = $_POST['user_name'];
 
