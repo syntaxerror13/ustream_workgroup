@@ -39,8 +39,8 @@ class Page
 
 		Page::$title = 'Project '.$p->name;
 
-		$output = '<div class="project"><span class="small">by @'.
-			$p->owner.'</span><p>'.$p->desc.'</p></div>';
+		$output = '<h2>Project summary</h2><div class="project"><p>'.$p->desc.' <span class="small">by @'.
+			$p->owner.'</span></p></div>';
 		
 		if (Page::$mocked)
 			$members = array(
