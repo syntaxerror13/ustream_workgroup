@@ -39,13 +39,13 @@ class Page
 
 		Page::$title = 'Project '.$p->name;
 
-		$output = '<h2>Project summary</h2><div class="project"><p>'.$p->desc.'</p><span class="small">by @'.
-			$p->owner.'</span></div>';
+		$output = '<h2>Project summary</h2><div class="project"><p>'.$p->desc.'</p></div>';
 		
 		if (Page::$mocked)
 			$members = array(
-				array('name' => 'syntaxerror', 'focus' => true),
-				array('name' => 'csabi', 'focus' => false),
+				array('name' => 'syntaxerror', 'focus' => false),
+				array('name' => 'csabi', 'focus' => true),
+				array('name' => 'someone', 'focus' => false),
 				);
 		else
 			$members = $p->getMembers();
@@ -60,14 +60,27 @@ class Page
 		$output .= '<h2>Members</h2>';
 		foreach ($members as $m)
 		{
-			$output .= '<div class="member"><a href="index.php?q=user/'.$m['name'].'">'.$m['name'].'</a> '.($m['focus'] ? '[x]' : '').'</div>';
+			$owner = $m['name'] == $p->owner ? ' owner' : '';
+			$focus = $m['focus'] ? ' focus' : '';
+			$output .= '<div class="member'.$focus.$owner.'"><a href="index.php?q=user/'.$m['name'].'">'.$m['name'].'</a></div>';
 		}
+		if (!count($members)) 
+		{
+			$output .= '<div class="member owner"><a href="index.php?q=user/'.$p->owner.'">'.$p->owner.'</a> (owner) '.($m['focus'] ? '[x]' : '').'</div>';
+			$output .= '<p>This project has no additional members yet.</p>';
+		}
+
 		$output .= '<h2>Log</h2>';
 		foreach ($logs as $l)
 		{
 			$output .= '<div class="log"><span class="small">'.$l->time.' <a href="index.php?q=user/'.$l->user.'">'.$l->user.'</a></span><br />'.$l->message.'</div>';
 		}
-		$output .= '<div class="footer"><a href="index.php?q=project">Browse more projects...</a></div>';
+		if (!count($logs)) 
+		{
+			$output .= '<p>Nothing has happened here yet.</p>';
+		}
+
+		$output .= '<div class="footer"><a href="index.php?q=project">More projects...</a></div>';
 		return $output;
 	}
 
@@ -135,7 +148,7 @@ class Page
 		$output = '';
 		foreach ($users as $u)
 		{
-			$output .= '<div class="user"><a href="index.php?q=user/'.$u->name.'">'.$u->name.'</a></div>';
+			$output .= '<div class="member"><a href="index.php?q=user/'.$u->name.'">'.$u->name.'</a></div>';
 		}
 		return $output;
 	}
