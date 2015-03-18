@@ -11,7 +11,7 @@ require_once('slack.php');
 require_once('User.php');
 require_once('Project.php');
 require_once('Event.php');
-
+require_once('DB.php');
 
 if ($token != $_POST['token']) {
 	echo "invalid";
@@ -23,7 +23,7 @@ $user = $_POST['user_name'];
 
 $userObj = User::load($user);
 if ($userObj == null) {
-	User::create($name);
+	User::create($user);
 	echo "created user";
 	die;
 }
