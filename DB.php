@@ -11,6 +11,7 @@ class DB {
 
 	public static function init($config) {
 		self::$instance = new PDO('mysql:host='.$config['host'].';dbname='.$config['name'].';charset=utf8', $config['user'], $config['pass']);
+		self::$instance->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 	}
 
 	/**
