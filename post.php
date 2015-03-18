@@ -30,7 +30,7 @@ switch ($command)
 	case 'help':
 		break;
 	case 'update':
-		Slack::send("this is a test", $workgroups_webhook_url, $channel);
+		Slack::send("this is a test", $workgroups_webhook_url, "#".$channel);
 		break;
 	case 'members':
 		break;
