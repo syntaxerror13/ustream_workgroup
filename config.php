@@ -15,3 +15,5 @@ $dbconfig = array(
 	'pass' => 'urvijCenk9',
 	'name' => 'ustream_workgroup'
 );
+
+$prod = true;

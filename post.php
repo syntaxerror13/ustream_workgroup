@@ -18,7 +18,9 @@ if ($token != $_POST['token']) {
 	die;
 }
 
-DB::init($dbconfig);
+if ($prod) {
+	DB::init($dbconfig);
+}
 
 $channel = $_POST['channel_name'];
 $username = $_POST['user_name'];

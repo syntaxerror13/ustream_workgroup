@@ -5,6 +5,13 @@ include('Project.php');
 include('User.php');
 include('Event.php');
 
+require_once('config.php');
+require_once('DB.php');
+
+if ($prod) {
+	DB::init($dbconfig);
+}
+
 class Page
 {
 	public static $title;
