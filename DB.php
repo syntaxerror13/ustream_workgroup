@@ -49,4 +49,14 @@ class DB {
 		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		return $results;
 	}
+
+	public static function execute($sql, $params = array())
+	{
+		$db = self::getInstance();
+		$stmt = $db->prepare($sql);
+		foreach ($params as $pname => $pvalue) {
+			$stmt->bindParam($pname, $pvalue);
+		}
+		$stmt->execute();
+	}
 }

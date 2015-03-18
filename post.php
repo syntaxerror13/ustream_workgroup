@@ -21,6 +21,13 @@ if ($token != $_POST['token']) {
 $channel = $_POST['channel_name'];
 $user = $_POST['user_name'];
 
+$userObj = User::load($user);
+if ($userObj == null) {
+	User::create($name);
+	echo "created user";
+	die;
+}
+
 $args = parse_text($_POST['text']);
 //var_dump($args);
 $command = array_shift($args);

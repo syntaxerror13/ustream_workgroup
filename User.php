@@ -22,6 +22,11 @@ class User {
 		}
 	}
 
+	public static function create($name) {
+		DB::execute("INSERT INTO wg_user SET user_name = :name", array(':name' => $name));
+		return new User($name);
+	}
+
 	/**
 	 * @return array of User objects
 	 */
