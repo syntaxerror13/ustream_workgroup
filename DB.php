@@ -34,7 +34,7 @@ class DB {
 		$db = self::getInstance();
 		$stmt = $db->prepare($sql);
 		foreach ($params as $pname => $pvalue) {
-			$stmt->bindParam($pname, $pvalue);
+			$stmt->bindValue($pname, $pvalue);
 		}
 		$stmt->execute();
 		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -46,7 +46,7 @@ class DB {
 		$db = self::getInstance();
 		$stmt = $db->prepare($sql);
 		foreach ($params as $pname => $pvalue) {
-			$stmt->bindParam($pname, $pvalue);
+			$stmt->bindValue($pname, $pvalue);
 		}
 		$stmt->execute();
 		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -58,7 +58,7 @@ class DB {
 		$db = self::getInstance();
 		$stmt = $db->prepare($sql);
 		foreach ($params as $pname => $pvalue) {
-			$stmt->bindParam($pname, $pvalue);
+			$stmt->bindValue($pname, $pvalue);
 		}
 		$stmt->execute();
 	}
