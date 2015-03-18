@@ -31,9 +31,9 @@ class Project {
 			array(
 				':name' => $name,
 				':desc' => $desc,
-				':owner' => $owner
+				':owner' => $owner->name
 			));
-		return new Project($name, $desc, $owner);
+		return new Project($name, $desc, $owner->name);
 	}
 
 	/**
