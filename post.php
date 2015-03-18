@@ -73,6 +73,7 @@ EOF;
 			echo "Project does not exist\n";
 		} else {
 			$user->joinProject($project);
+			echo "Joined project " . $projectname . "\n";
 		}
 		break;
 	case 'update':
