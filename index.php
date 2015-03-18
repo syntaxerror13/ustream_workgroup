@@ -37,7 +37,9 @@ class Page
 			$p = Project::load($name);
 		if ($p == null) return '';
 
-		$output = '<div class="project"><h1>'.$p->name.'</h1><span class="small">by @'.
+		Page::$title = 'Project '.$p->name;
+
+		$output = '<div class="project"><span class="small">by @'.
 			$p->owner.'</span><p>'.$p->desc.'</p></div>';
 		
 		if (Page::$mocked)
@@ -78,7 +80,9 @@ class Page
 		else
 			$projects = Project::listAll();
 		
-		$output = '<h1>Projects</h1>';
+		Page::$title = 'Workgroup projects';
+
+		$output = '';
 		foreach ($projects as $p)
 		{
 			$output .= '<div class="project"><a href="index.php?q=project/'.$p->name.'">'.$p->name.'</a><br/><span class="small">by @'.
@@ -96,7 +100,10 @@ class Page
 			$u = User::load($name);
 
 		if (!$u) return '';
-		$output = '<div class="user"><h1>'.$u->name.'</h1></div>';
+
+		Page::$title = 'User '.$u->name;
+
+		$output = '';
 		$output .= '<h2>Projects</h2>';
 
 		if (Page::$mocked)
@@ -121,7 +128,9 @@ class Page
 		else
 			User::listAll();
 
-		$output = '<h1>Users</h1>';
+		Page::$title = 'Workgroup users';
+
+		$output = '';
 		foreach ($users as $u)
 		{
 			$output .= '<div class="user"><a href="/index.php?q=user/'.$u->name.'">'.$u->name.'</a></div>';
@@ -137,6 +146,7 @@ class Page
 	user/@id - describe a project
 */
 
+Page::$title = 'Ustream Workgroups';
 $command = Page::getCommand();
 
 switch ($command['command']) 
@@ -164,10 +174,11 @@ switch ($command['command'])
 
 ?><html>
 <head>
-	<title>Ustream workgroups</title>
+	<title><?php echo Page::$title; ?></title>
 	<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<?php echo $output; ?>	
+<div class="header"><h1><?php echo Page::$title; ?><h1></div>
+<div class="content"><?php echo $output; ?></div>	
 </body>
 </html>
