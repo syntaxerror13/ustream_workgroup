@@ -64,8 +64,16 @@ EOF;
 		$desc = array_shift($args);
 		$project = Project::create($name, $desc, $user);
 		echo "Project created\n";
-//s		$user->joinProject($project);
-		die;
+		$user->joinProject($project);
+		break;
+	case 'join':
+		$projectname = array_shift($args);
+		$project = Project::load($projectname);
+		if (empty($project)) {
+			echo "Project does not exist\n";
+		} else {
+			$user->joinProject($project);
+		}
 		break;
 	case 'update':
 		Slack::send("this is a test", $workgroups_webhook_url, "#".$channel);
