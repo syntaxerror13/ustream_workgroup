@@ -81,6 +81,7 @@ EOF;
 		break;
 	case 'projects':
 		$projects = $user->getProjects();
+		echo "Total " . count($projects) . " projects: \n";
 		foreach ($projects as $project) {
 			echo $project['name'] . " " . ($project['focus'] ? "[*]" : "") . "\n";
 		}
@@ -142,6 +143,7 @@ EOF;
 			echo "Project does not exist\n";
 		} else {
 			$members = $project->getMembers();
+			echo "Total " . count($members) . " members: \n";
 			foreach ($members as $member) {
 				echo $member['name'] . " " . ($member['focus'] ? "[*]" : "") . "\n";
 			}
