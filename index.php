@@ -66,7 +66,7 @@ class Page
 		}
 		if (!count($members)) 
 		{
-			$output .= '<div class="member owner"><a href="index.php?q=user/'.$p->owner.'">'.$p->owner.'</a> (owner) '.($m['focus'] ? '[x]' : '').'</div>';
+			$output .= '<div class="member owner"><a href="index.php?q=user/'.$p->owner.'">'.$p->owner.'</a></div>';
 			$output .= '<p>This project has no additional members yet.</p>';
 		}
 
@@ -141,7 +141,7 @@ class Page
 		if (Page::$mocked)
 			$users = array(new User('csabi'), new User('syntaxerror'));
 		else
-			User::listAll();
+			$users = User::listAll();
 
 		Page::$title = 'Workgroup users';
 
