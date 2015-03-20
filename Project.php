@@ -11,6 +11,9 @@ class Project {
 	public $desc;
 	public $owner;
 	public $slackroom;
+	public $members;
+	public $focusingMembers;
+	public $unfocusingMembers;
 
 	public function __construct($name, $desc, $owner, $slackroom = "") {
 		$this->name = $name;
@@ -85,6 +88,22 @@ class Project {
 				':slackroom' => $slackroom
 			));
 		Event::create($this, $user, 'slackroom', 'Set slackroom to ' . $slackroom);
+	}
+
+	public function loadStats()
+	{
+		//get focusing and non focusing member count
+		$dbresult = DB::getAll("SELECT is_focus, count(user_name) AS members FROM wg_member WHERE project_name = :name GROUP BY is_focus", 
+			array(':name' => $this->name));
+		$this -> focusingMembers = 0;
+		$this -> unfocusingMembers = 0; 
+		foreach ($dbresult as $row) {
+			if ($row['is_focus'] == 1) $this -> focusingMembers = $row['members'];
+			else $this -> unfocusingMembers = $row['members'];
+		}
+		$this -> members = $this -> focusingMembers + $this -> unfocusingMembers;
+
+		
 	}
 
 	public function setOwner(User $owner, User $user) {

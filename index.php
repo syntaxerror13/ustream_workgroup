@@ -49,7 +49,10 @@ class Page
 				array('name' => 'someone', 'focus' => false),
 				);
 		else
+		{
 			$members = $p->getMembers();
+			$p -> loadStats();
+		}
 		
 		if (Page::$mocked)
 			$logs = array(new Event('2015-01-01', 'Whatever', 'syntaxerror', 'joined the project.'),
@@ -58,7 +61,8 @@ class Page
 		else
 			$logs = $p->getLog();
 
-		$output .= '<h2>Members</h2>';
+		$output .= '<h2>Members</h2>';		
+		$output .= '<span class="small">Total: '.$p->members.', Focusing: '.$p->focusingMembers.'</span>';
 		foreach ($members as $m)
 		{
 			$owner = $m['name'] == $p->owner ? ' owner' : '';
