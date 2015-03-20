@@ -21,6 +21,10 @@ class Event {
 		$this->message = $message;
 	}
 
+	public function getLogMessage() {
+		return "@" . $this->user . ($this->action == 'update' ? " logged: " : " ") . $this->message;
+	}
+
 	public static function create(Project $project, User $user, $action, $message) {
 		DB::execute("INSERT INTO wg_log SET timestamp = NOW(), project_name = :project, user_name = :user, action = :action, message = :message",
 			array(

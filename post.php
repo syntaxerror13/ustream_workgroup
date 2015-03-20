@@ -154,7 +154,25 @@ EOF;
 		}
 		break;
 	case 'details':
-		echo "not implemented\n";
+		$projectname = array_shift($args);
+		$project = Project::load($projectname);
+		if (empty($project)) {
+			echo "Project does not exist\n";
+		} else {
+			echo "Project " . $project->name . " details:\n";
+			echo "Description: " . $project->desc . "\n\n";
+			echo "Owner: " . $project->owner . "\n";
+			echo "Slack room: " . (!empty($project->slackroom) ? "#" . $project->slackroom : "not set") . "\n";
+			$logs = $project->getLog(1);
+			$event = $logs[0];
+			echo "Last log: " . $event->getLogMessage() . "\n";
+			$members = $project->getMembers();
+			echo "Total " . count($members) . " members: \n";
+			foreach ($members as $member) {
+				echo $member['name'] . " " . ($member['focus'] ? "[*]" : "") . "\n";
+			}
+		}
+		break;
 		break;
 	case 'members':
 		$projectname = array_shift($args);

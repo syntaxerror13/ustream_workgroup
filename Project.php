@@ -77,8 +77,12 @@ class Project {
 	/**
 	 * @return array of Event objects
 	 */
-	public function getLog() {
-		$dbresult = DB::getAll("SELECT * FROM wg_log WHERE project_name = :name ORDER BY timestamp DESC", array(':name' => $this->name));
+	public function getLog($limit = -1) {
+		$sql = "SELECT * FROM wg_log WHERE project_name = :name ORDER BY timestamp DESC";
+		if ($limit) {
+			$sql .= " LIMIT " . $limit;
+		}
+		$dbresult = DB::getAll($sql, array(':name' => $this->name));
 		$result = array();
 		foreach ($dbresult as $row) {
 			$result[] = new Event($row['timestamp'], $row['project_name'], $row['user_name'], $row['action'], $row['message']);
