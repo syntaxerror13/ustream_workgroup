@@ -36,8 +36,9 @@ class Project {
 				':owner' => $owner->name,
 				':slackroom' => $slackroom
 			));
-		Event::create($name, $owner, 'start', 'Started project');
-		return new Project($name, $desc, $owner->name);
+		$project = new Project($name, $desc, $owner->name, $slackroom);
+		Event::create($project, $owner, 'start', 'Started project');
+		return $project;
 	}
 
 	/**
@@ -83,7 +84,7 @@ class Project {
 				':name' => $this->name,
 				':slackroom' => $slackroom
 			));
-		Event::create($this->name, $user->name, 'slackroom', 'Set slackroom to ' . $slackroom);
+		Event::create($this, $user, 'slackroom', 'Set slackroom to ' . $slackroom);
 	}
 
 	public function setOwner(User $owner, User $user) {
@@ -92,6 +93,6 @@ class Project {
 				':name' => $this->name,
 				':owner' => $owner->name
 			));
-		Event::create($this->name, $user->name, 'owner', 'Set owner to ' . $owner->name);
+		Event::create($this, $user, 'owner', 'Set owner to ' . $owner->name);
 	}
 }

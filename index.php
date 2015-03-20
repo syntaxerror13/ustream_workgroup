@@ -10,6 +10,7 @@ require_once('config.php');
 if ($prod) {
 	require_once('DB.php');
 	DB::init($dbconfig);
+	Slack::init($workgroups_webhook_url);
 	Page::$mocked = false;
 }
 else

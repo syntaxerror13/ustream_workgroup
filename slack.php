@@ -1,6 +1,12 @@
 <?php
 class Slack
 {
+	public static $url;
+
+	public static function init($url)
+	{
+		self::$url = $url;
+	}
 
 	public static function httpPost($url, $params)
 	{
@@ -26,16 +32,13 @@ class Slack
 		return $output;
 	}
 
-	public static function send($text, $url, $channel = false)
+	public static function send($text, $channel = false)
 	{
 		$payload = array();
 		$payload['text'] = $text;
 		$payload['link_names'] = 1;
 		if ($channel) $payload['channel'] = $channel;
 
-		Slack::httpPost($url, array('payload' => json_encode($payload)) );
-	}	
-
+		Slack::httpPost(self::$url, array('payload' => json_encode($payload)) );
+	}
 }
-
-?>

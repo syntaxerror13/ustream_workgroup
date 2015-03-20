@@ -20,6 +20,7 @@ if ($token != $_POST['token']) {
 
 if ($prod) {
 	DB::init($dbconfig);
+	Slack::init($workgroups_webhook_url);
 }
 
 $channel = $_POST['channel_name'];
@@ -171,7 +172,7 @@ EOF;
 			echo "Project does not exist\n";
 		} else {
 			$message = array_shift($args);
-			Event::create($project->name, $user->name, 'update', $message);
+			Event::create($project, $user, 'update', $message);
 		}
 //		Slack::send("this is a test", $workgroups_webhook_url, "#".$channel);
 		break;

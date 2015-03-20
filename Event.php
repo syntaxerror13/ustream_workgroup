@@ -21,13 +21,18 @@ class Event {
 		$this->message = $message;
 	}
 
-	public static function create($project, $user, $action, $message) {
+	public static function create(Project $project, User $user, $action, $message) {
 		DB::execute("INSERT INTO wg_log SET timestamp = NOW(), project_name = :project, user_name = :user, action = :action, message = :message",
 			array(
-				':project' => $project,
-				':user' => $user,
+				':project' => $project->name,
+				':user' => $user->name,
 				':action' => $action,
 				':message' => $message
 			));
+
+		$slackmessage = $project->name . " update: " . $user->name . " " . $message;
+		$channel = !empty($project->slackroom) ? "#" . $project->slackroom : "@" . $project->owner;
+
+		Slack::send($slackmessage, $channel);
 	}
 }
