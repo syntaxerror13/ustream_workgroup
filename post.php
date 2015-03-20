@@ -44,7 +44,7 @@ Available commands:
 
 * start [project name] ['project description'] [slack room]
   Starts a new project with the specified name and description. The current user joins the specified project.
-  Slack room is optional, if not specified, it will be the current channel. If the current channel is not set, it will be empty.
+  Slack room is optional, and should be specified without '#' mark. If not specified, it will be the current channel. If the current channel is not set, it will be empty.
 
 * join [project name]
   The current user joins the specified project
@@ -80,7 +80,7 @@ Available commands:
   Changes the owner of the specified project
 
 * setroom [project name] [slack room]
-  Changes the slack room of the specified project
+  Changes the slack room of the specified project. Slack room should be specified without '#' mark
 
 Note: [x] means a single word parameter, ['x'] is a parameter string in single quotes (')
 EOF;
@@ -165,7 +165,15 @@ EOF;
 		}
 		break;
 	case 'log':
-		Slack::send("this is a test", $workgroups_webhook_url, "#".$channel);
+		$projectname = array_shift($args);
+		$project = Project::load($projectname);
+		if (empty($project)) {
+			echo "Project does not exist\n";
+		} else {
+			$message = array_shift($args);
+			Event::create($project->name, $user->name, 'update', $message);
+		}
+//		Slack::send("this is a test", $workgroups_webhook_url, "#".$channel);
 		break;
 	case 'setowner':
 		$projectname = array_shift($args);
