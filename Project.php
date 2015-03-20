@@ -91,7 +91,7 @@ class Project {
 	 * @param $limit
 	 * @return Event[]
 	 */
-	public function getLog($limit = -1) {
+	public function getLog($limit = false) {
 		$sql = "SELECT * FROM wg_log WHERE project_name = :name ORDER BY timestamp DESC";
 		if ($limit) {
 			$sql .= " LIMIT " . $limit;
