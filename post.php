@@ -75,7 +75,12 @@ Available commands:
   Shows the member list of the specified project. [*] indicates members with focus
 
 * log [project name] ['update message']
-  Log an update for the specified project
+* update [project name] ['update message']
+  Log an update for the specified project. The two commands are identical.
+
+* result [project name] [success ratio]
+  Log the focus success ratio for a week for the specified project. Success ratio can be an integer between 0 and 100, or one of the following:
+  'fail' (means 0), 'mixed' (means 50), 'success' (means 100)
 
 * setowner [project name] [user name]
   Changes the owner of the specified project
@@ -188,6 +193,8 @@ EOF;
 		}
 		break;
 	case 'log':
+		// fallthrough
+	case 'update':
 		$projectname = array_shift($args);
 		$project = Project::load($projectname);
 		if (empty($project)) {
@@ -224,6 +231,31 @@ EOF;
 			$slackroom = array_shift($args);
 			$project->setRoom($slackroom, $user);
 			echo "Project room updated to '" . $slackroom . "'\n";
+		}
+		break;
+	case 'result':
+		$projectname = array_shift($args);
+		$project = Project::load($projectname);
+		if (empty($project)) {
+			echo "Project does not exist\n";
+		} else {
+			$ratio = array_shift($args);
+			switch (strtolower($ratio)) {
+				case 'fail':
+					$ratio = 0;
+					break;
+				case 'mixed':
+					$ratio = 50;
+					break;
+				case 'success':
+					$ratio = 100;
+					break;
+				default:
+					$ratio = intval($ratio);
+					break;
+			}
+			Event::create($project, $user, 'ratio', $ratio);
+			echo "Logged focus ratio of " . $ratio . " for project " . $project->name . "\n";
 		}
 		break;
 	default:
