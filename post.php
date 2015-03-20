@@ -222,6 +222,11 @@ function parse_text($text)
 			$quote = !$quote;
 			continue;
 		}
+		if ($char == "'")
+		{
+			$quote = !$quote;
+			continue;
+		}
 		if ($char == " " && !$quote)
 		{
 			$ret[] = $word;
