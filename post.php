@@ -121,6 +121,8 @@ EOF;
 		$project = Project::load($projectname);
 		if (empty($project)) {
 			echo "Project does not exist\n";
+		} else if ($project->owner == $user->name) {
+			echo "Owner can not leave the project\n";
 		} else {
 			$user->leaveProject($project);
 			echo "Left project " . $projectname . "\n";
