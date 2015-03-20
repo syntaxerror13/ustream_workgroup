@@ -85,7 +85,7 @@ class Page
 			$routput .= '<p>Nothing has happened here yet.</p>';
 		}
 
-		$output .= '<div class="footer"><a href="index.php?q=project">More projects...</a></div>';
+		$output .= '<div class="footer"><p><a href="index.php?q=project">More projects...</a></p></div>';
 		return array($output, $routput);
 	}
 
