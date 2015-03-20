@@ -25,3 +25,7 @@ CREATE TABLE `wg_log` (
   `message` varchar(1000) DEFAULT "",
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+alter table wg_log add column action varchar(32) after user_name;
+
+alter table wg_project add column slack_room varchar(32) after owner_name;
