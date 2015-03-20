@@ -68,7 +68,19 @@ class User {
 			));
 	}
 
+	public function isMemberOf(Project $project) {
+		$dbresult = DB::getOne("SELECT * FROM wg_member WHERE project_name = :name AND user_name = :user",
+			array(
+				':name' => $project->name,
+				':user' => $this->name
+			));
+		return !empty($dbresult);
+	}
+
 	public function joinProject(Project $project) {
+		if ($this->isMemberOf($project)) {
+			return;
+		}
 		DB::execute("INSERT INTO wg_member SET project_name = :name, user_name = :user, is_focus = 0",
 			array(
 				':name' => $project->name,

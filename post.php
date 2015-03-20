@@ -76,6 +76,12 @@ Available commands:
 * log [project name] ['update message']
   Log an update for the specified project
 
+* setowner [project name] [user name]
+  Changes the owner of the specified project
+
+* setroom [project name] [slack room]
+  Changes the slack room of the specified project
+
 Note: [x] means a single word parameter, ['x'] is a parameter string in single quotes (')
 EOF;
 
@@ -158,6 +164,34 @@ EOF;
 		break;
 	case 'log':
 		Slack::send("this is a test", $workgroups_webhook_url, "#".$channel);
+		break;
+	case 'setowner':
+		$projectname = array_shift($args);
+		$project = Project::load($projectname);
+		if (empty($project)) {
+			echo "Project does not exist\n";
+		} else {
+			$ownername = array_shift($args);
+			$owner = User::load($ownername);
+			if (empty($owner)) {
+				echo "User " . $ownername . " not found\n";
+			} else {
+				$owner->joinProject($project);
+				$project->setOwner($owner);
+				echo "Project owner changed successfully\n";
+			}
+		}
+		break;
+	case 'setroom':
+		$projectname = array_shift($args);
+		$project = Project::load($projectname);
+		if (empty($project)) {
+			echo "Project does not exist\n";
+		} else {
+			$slackroom = array_shift($args);
+			$project->setRoom($slackroom);
+			echo "Project room updated to '" . $slackroom . "'\n";
+		}
 		break;
 	default:
 		echo "unknown command, see help\n";

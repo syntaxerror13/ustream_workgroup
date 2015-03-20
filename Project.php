@@ -75,4 +75,20 @@ class Project {
 		}
 		return $result;
 	}
+
+	public function setRoom($slackroom) {
+		DB::execute("UPDATE wg_project SET slack_room = :slackroom WHERE project_name = :name",
+			array(
+				':name' => $this->name,
+				':slackroom' => $slackroom
+			));
+	}
+
+	public function setOwner(User $owner) {
+		DB::execute("UPDATE wg_project SET owner_name = :owner WHERE project_name = :name",
+			array(
+				':name' => $this->name,
+				':owner' => $owner->name
+			));
+	}
 }
