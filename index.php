@@ -105,7 +105,8 @@ class Page
 		foreach ($projects as $p)
 		{
 			$output .= '<div class="project"><a href="index.php?q=project/'.$p->name.'">'.$p->name.'</a><br/><span class="small">by @'.
-				$p->owner.'</span><p>'.$p->desc.'</p></div>';
+				$p->owner.' Focus/Members: '.$p->focusingMembers.'/'.$p->members.'</span>'.
+				'<p>'.$p->desc.'</p></div>';
 		}
 		return array($output, '');
 

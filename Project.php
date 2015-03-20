@@ -48,10 +48,15 @@ class Project {
 	 * @return array of Project objects
 	 */
 	public static function listAll() {
-		$dbresult = DB::getAll("SELECT * FROM wg_project");
+		$dbresult = DB::getAll("SELECT p.project_name, p.description, p.owner_name, p.slack_room, count(m.user_name) AS members, sum(m.is_focus) AS fmembers ".
+			"FROM wg_project p JOIN wg_member m ON p.project_name = m.project_name ".
+			"GROUP BY p.project_name, p.description, p.owner_name, p.slack_room");
 		$result = array();
 		foreach ($dbresult as $row) {
-			$result[] = new Project($row['project_name'], $row['description'], $row['owner_name'], $row['slack_room']);
+			$p = new Project($row['project_name'], $row['description'], $row['owner_name'], $row['slack_room']);
+			$p ->$members = $row['members'];
+			$p -> focusingMembers = $row['fmembers'];
+			$result[] = $p;
 		}
 		return $result;
 	}
