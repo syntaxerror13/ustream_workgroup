@@ -70,18 +70,18 @@ class Page
 			$output .= '<p>This project has no additional members yet.</p>';
 		}
 
-		$output .= '<h2>Log</h2>';
+		$routput = '<h2>Log</h2>';
 		foreach ($logs as $l)
 		{
-			$output .= '<div class="log"><span class="small">'.$l->time.' <a href="index.php?q=user/'.$l->user.'">'.$l->user.'</a></span><br />'.$l->message.'</div>';
+			$routput .= '<div class="log"><span class="small">'.$l->time.' <a href="index.php?q=user/'.$l->user.'">'.$l->user.'</a></span><br />'.$l->message.'</div>';
 		}
 		if (!count($logs)) 
 		{
-			$output .= '<p>Nothing has happened here yet.</p>';
+			$routput .= '<p>Nothing has happened here yet.</p>';
 		}
 
 		$output .= '<div class="footer"><a href="index.php?q=project">More projects...</a></div>';
-		return $output;
+		return array($output, $routput);
 	}
 
 
@@ -102,7 +102,7 @@ class Page
 			$output .= '<div class="project"><a href="index.php?q=project/'.$p->name.'">'.$p->name.'</a><br/><span class="small">by @'.
 				$p->owner.'</span><p>'.$p->desc.'</p></div>';
 		}
-		return $output;
+		return array($output, '');
 
 	}
 
@@ -133,7 +133,7 @@ class Page
 			$output .= '<div class="project"><a href="index.php?q=project/'.$p['name'].'">'.$p['name'].'</a> '.($p['focus'] ? '[x]' : '').'</div>';
 		}
 		$output .= '<div class="footer"><a href="index.php?q=user">Browse more users...</a></div>';
-		return $output;
+		return array($output, '');
 	}
 
 	public static function renderUsers()
@@ -149,8 +149,9 @@ class Page
 		foreach ($users as $u)
 		{
 			$output .= '<div class="member"><a href="index.php?q=user/'.$u->name.'">'.$u->name.'</a></div>';
+
 		}
-		return $output;
+		return array($output, '');
 	}
 }
 
@@ -191,9 +192,15 @@ switch ($command['command'])
 <head>
 	<title><?php echo Page::$title; ?></title>
 	<link rel="stylesheet" href="style.css" />
+	<meta name="viewport" content="width=device-width; initial-scale=1.0" />
 </head>
 <body>
 <div class="header"><h1><?php echo Page::$title; ?><h1></div>
-<div class="content"><?php echo $output; ?></div>	
+<div class="content">
+	<div class="padded"><?php echo $output[0]; ?></div>
+</div>	
+<div class="content">
+	<div class="padded"><?php echo $output[1]; ?></div>
+</div>	
 </body>
 </html>

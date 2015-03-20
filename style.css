@@ -36,7 +36,11 @@ div.header
 }
 div.content
 {
-	padding: 2em 2em;
+	padding: 0em;
+}
+div.padded
+{
+	padding: 2em 0em 0em 2em;
 }
 div.log
 {
@@ -58,3 +62,73 @@ div.owner
 {
 	background-image: url('images/owner.png');
 }
+
+/*
+Respnsive media queries
+*/
+
+@media screen and (min-aspect-ratio: 1/1) { div.content { display: inline-table; width: 46%; }}
+
+@media screen and (min-width:240px) { body { font-size:19%; } }
+@media screen and (min-width:264px) { body { font-size:21%; } }
+@media screen and (min-width:290px) { body { font-size:23%; } }
+@media screen and (min-width:319px) { body { font-size:26%; } }
+@media screen and (min-width:351px) { body { font-size:28%; } }
+@media screen and (min-width:386px) { body { font-size:31%; } }
+@media screen and (min-width:425px) { body { font-size:34%; } }
+@media screen and (min-width:468px) { body { font-size:38%; } }
+@media screen and (min-width:515px) { body { font-size:42%; } }
+@media screen and (min-width:567px) { body { font-size:46%; } }
+@media screen and (min-width:624px) { body { font-size:50%; } }
+@media screen and (min-width:686px) { body { font-size:55%; } }
+@media screen and (min-width:755px) { body { font-size:61%; } }
+@media screen and (min-width:831px) { body { font-size:67%; } }
+@media screen and (min-width:914px) { body { font-size:74%; } }
+@media screen and (min-width:1005px) { body { font-size:81%; } }
+@media screen and (min-width:1106px) { body { font-size:89%; } }
+@media screen and (min-width:1217px) { body { font-size:98%; } }
+@media screen and (min-width:1339px) { body { font-size:108%; } }
+@media screen and (min-width:1473px) { body { font-size:119%; } }
+@media screen and (min-width:1620px) { body { font-size:131%; } }
+@media screen and (min-width:1782px) { body { font-size:144%; } }
+@media screen and (min-width:1960px) { body { font-size:158%; } }
+@media screen and (min-width:2156px) { body { font-size:174%; } }
+@media screen and (min-width:2372px) { body { font-size:191%; } }
+@media screen and (min-width:2609px) { body { font-size:210%; } }
+@media screen and (min-width:2870px) { body { font-size:231%; } }
+@media screen and (min-width:3157px) { body { font-size:255%; } }
+@media screen and (min-width:3473px) { body { font-size:280%; } }
+@media screen and (min-width:3820px) { body { font-size:308%; } }
+@media screen and (min-width:4202px) { body { font-size:339%; } }
+
+@media screen and (min-width:240px) and (max-aspect-ratio: 1/1) { body { font-size:38%; } }
+@media screen and (min-width:264px) and (max-aspect-ratio: 1/1) { body { font-size:42%; } }
+@media screen and (min-width:290px) and (max-aspect-ratio: 1/1) { body { font-size:46%; } }
+@media screen and (min-width:319px) and (max-aspect-ratio: 1/1) { body { font-size:52%; } }
+@media screen and (min-width:351px) and (max-aspect-ratio: 1/1) { body { font-size:56%; } }
+@media screen and (min-width:386px) and (max-aspect-ratio: 1/1) { body { font-size:62%; } }
+@media screen and (min-width:425px) and (max-aspect-ratio: 1/1) { body { font-size:68%; } }
+@media screen and (min-width:468px) and (max-aspect-ratio: 1/1) { body { font-size:76%; } }
+@media screen and (min-width:515px) and (max-aspect-ratio: 1/1) { body { font-size:84%; } }
+@media screen and (min-width:567px) and (max-aspect-ratio: 1/1) { body { font-size:92%; } }
+@media screen and (min-width:624px) and (max-aspect-ratio: 1/1) { body { font-size:100%; } }
+@media screen and (min-width:686px) and (max-aspect-ratio: 1/1) { body { font-size:110%; } }
+@media screen and (min-width:755px) and (max-aspect-ratio: 1/1) { body { font-size:122%; } }
+@media screen and (min-width:831px) and (max-aspect-ratio: 1/1) { body { font-size:134%; } }
+@media screen and (min-width:914px) and (max-aspect-ratio: 1/1) { body { font-size:148%; } }
+@media screen and (min-width:1005px) and (max-aspect-ratio: 1/1) { body { font-size:162%; } }
+@media screen and (min-width:1106px) and (max-aspect-ratio: 1/1) { body { font-size:178%; } }
+@media screen and (min-width:1217px) and (max-aspect-ratio: 1/1) { body { font-size:196%; } }
+@media screen and (min-width:1339px) and (max-aspect-ratio: 1/1) { body { font-size:216%; } }
+@media screen and (min-width:1473px) and (max-aspect-ratio: 1/1) { body { font-size:238%; } }
+@media screen and (min-width:1620px) and (max-aspect-ratio: 1/1) { body { font-size:131%; } }
+@media screen and (min-width:1782px) and (max-aspect-ratio: 1/1) { body { font-size:288%; } }
+@media screen and (min-width:1960px) and (max-aspect-ratio: 1/1) { body { font-size:316%; } }
+@media screen and (min-width:2156px) and (max-aspect-ratio: 1/1) { body { font-size:348%; } }
+@media screen and (min-width:2372px) and (max-aspect-ratio: 1/1) { body { font-size:382%; } }
+@media screen and (min-width:2609px) and (max-aspect-ratio: 1/1) { body { font-size:420%; } }
+@media screen and (min-width:2870px) and (max-aspect-ratio: 1/1) { body { font-size:462%; } }
+@media screen and (min-width:3157px) and (max-aspect-ratio: 1/1) { body { font-size:510%; } }
+@media screen and (min-width:3473px) and (max-aspect-ratio: 1/1) { body { font-size:560%; } }
+@media screen and (min-width:3820px) and (max-aspect-ratio: 1/1) { body { font-size:616%; } }
+@media screen and (min-width:4202px) and (max-aspect-ratio: 1/1) { body { font-size:678%; } }
