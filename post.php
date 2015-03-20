@@ -173,8 +173,8 @@ EOF;
 		} else {
 			$message = array_shift($args);
 			Event::create($project, $user, 'update', $message);
+			echo "update logged successfully\n";
 		}
-//		Slack::send("this is a test", $workgroups_webhook_url, "#".$channel);
 		break;
 	case 'setowner':
 		$projectname = array_shift($args);

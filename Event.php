@@ -30,7 +30,7 @@ class Event {
 				':message' => $message
 			));
 
-		$slackmessage = $project->name . " update: " . $user->name . " " . $message;
+		$slackmessage = $project->name . " update: @" . $user->name . ($action == 'update' ? " logged: " : " ") . $message;
 		$channel = !empty($project->slackroom) ? "#" . $project->slackroom : "@" . $project->owner;
 
 		Slack::send($slackmessage, $channel);
