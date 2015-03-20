@@ -59,7 +59,7 @@ class Page
 				new Event('2015-01-01', 'Whatever', 'csabi', 'left the project.'),	
 				);
 		else
-			$logs = $p->getLog();
+			$logs = $p->getLog(20);
 
 		$output .= '<h2>Members</h2>';		
 		$output .= '<p><span class="small">Total: '.$p->members.', Focusing: '.$p->focusingMembers.'</span></p>';
@@ -75,10 +75,14 @@ class Page
 			$output .= '<p>This project has no additional members yet.</p>';
 		}
 
-		$routput = '<h2>Log</h2>';
+		$routput = '<h2>Recent activity</h2>';
 		foreach ($logs as $l)
 		{
-			$routput .= '<div class="log"><span class="small">'.$l->time.' <a href="index.php?q=user/'.$l->user.'">'.$l->user.'</a></span><br />'.$l->message.'</div>';
+			$smallActions = array("join", "leave", "focus", "unfocus"); 
+			if (array_search($l['action'], array $smallActions) === false) 
+				$routput .= '<div class="log"><span class="small">'.$l->time.' <a href="index.php?q=user/'.$l->user.'">'.$l->user.'</a></span><br />'.$l->message.'</div>';
+			else
+				$routput .= '<div class="log"><span class="small">'.$l->time.' <a href="index.php?q=user/'.$l->user.'">'.$l->user.'</a> '.$l->message.'</span></div>';
 		}
 		if (!count($logs)) 
 		{
