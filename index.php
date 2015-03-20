@@ -79,7 +79,7 @@ class Page
 		foreach ($logs as $l)
 		{
 			$smallActions = array("join", "leave", "focus", "unfocus"); 
-			if (array_search($l['action'], $smallActions) === false) 
+			if (array_search($l->action, $smallActions) === false) 
 				$routput .= '<div class="log"><span class="small">'.$l->time.' <a href="index.php?q=user/'.$l->user.'">'.$l->user.'</a></span><br />'.$l->message.'</div>';
 			else
 				$routput .= '<div class="log"><span class="small">'.$l->time.' <a href="index.php?q=user/'.$l->user.'">'.$l->user.'</a> '.$l->message.'</span></div>';
