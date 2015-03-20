@@ -62,7 +62,7 @@ class Page
 			$logs = $p->getLog();
 
 		$output .= '<h2>Members</h2>';		
-		$output .= '<span class="small">Total: '.$p->members.', Focusing: '.$p->focusingMembers.'</span>';
+		$output .= '<p><span class="small">Total: '.$p->members.', Focusing: '.$p->focusingMembers.'</span></p>';
 		foreach ($members as $m)
 		{
 			$owner = $m['name'] == $p->owner ? ' owner' : '';
