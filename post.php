@@ -78,7 +78,7 @@ Available commands:
 * update [project name] ['update message']
   Log an update for the specified project. The two commands are identical.
 
-* result [project name] [success ratio]
+* ratio [project name] [success ratio]
   Log the focus success ratio for a week for the specified project. Success ratio can be an integer between 0 and 100, or one of the following:
   'fail' (means 0), 'mixed' (means 50), 'success' (means 100)
 
@@ -233,7 +233,7 @@ EOF;
 			echo "Project room updated to '" . $slackroom . "'\n";
 		}
 		break;
-	case 'result':
+	case 'ratio':
 		$projectname = array_shift($args);
 		$project = Project::load($projectname);
 		if (empty($project)) {
