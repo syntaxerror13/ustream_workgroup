@@ -33,6 +33,7 @@ switch ($task) {
 				$message = "Weekly cleanup is removing your focus from project " . $project->name . "\nSet it again with the 'focus' command if needed.";
 				$channel = "@" . $user->name;
 				Slack::send($message, $channel);
+				$user->removeFocus($project);
 			}
 		}
 		break;
