@@ -22,6 +22,10 @@ class Project {
 		$this->slackroom = $slackroom;
 	}
 
+	/**
+	 * @param $name
+	 * @return null|Project
+	 */
 	public static function load($name) {
 		$row = DB::getOne("SELECT * FROM wg_project WHERE project_name = :name", array(':name' => $name));
 		if (!empty($row)) {
@@ -31,6 +35,13 @@ class Project {
 		}
 	}
 
+	/**
+	 * @param $name
+	 * @param $desc
+	 * @param $owner
+	 * @param string $slackroom
+	 * @return Project
+	 */
 	public static function create($name, $desc, $owner, $slackroom = "") {
 		DB::execute("INSERT INTO wg_project SET project_name = :name, description = :desc, owner_name = :owner, slack_room = :slackroom",
 			array(
@@ -45,7 +56,7 @@ class Project {
 	}
 
 	/**
-	 * @return array of Project objects
+	 * @return Project[]
 	 */
 	public static function listAll() {
 		$dbresult = DB::getAll("SELECT p.project_name, p.description, p.owner_name, p.slack_room, count(m.user_name) AS members, sum(m.is_focus) AS fmembers ".
@@ -64,6 +75,8 @@ class Project {
 	/**
 	 * return format:
 	 * [{"name" => "Jozsi", "focus" => true},{"name" => "Geza", "focus" => false}]
+	 *
+	 * @return array
 	 */
 	public function getMembers() {
 		$dbresult = DB::getAll("SELECT * FROM wg_member WHERE project_name = :name", array(':name' => $this->name));
@@ -75,7 +88,8 @@ class Project {
 	}
 
 	/**
-	 * @return array of Event objects
+	 * @param $limit
+	 * @return Event[]
 	 */
 	public function getLog($limit = -1) {
 		$sql = "SELECT * FROM wg_log WHERE project_name = :name ORDER BY timestamp DESC";

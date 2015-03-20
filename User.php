@@ -13,6 +13,10 @@ class User {
 		$this->name = $name;
 	}
 
+	/**
+	 * @param $name
+	 * @return null|User
+	 */
 	public static function load($name) {
 		$row = DB::getOne("SELECT * FROM wg_user WHERE user_name = :name", array(':name' => $name));
 		if (!empty($row)) {
@@ -22,13 +26,17 @@ class User {
 		}
 	}
 
+	/**
+	 * @param $name
+	 * @return User
+	 */
 	public static function create($name) {
 		DB::execute("INSERT INTO wg_user SET user_name = :name", array(':name' => $name));
 		return new User($name);
 	}
 
 	/**
-	 * @return array of User objects
+	 * @return User[]
 	 */
 	public static function listAll() {
 		$dbresult = DB::getAll("SELECT * FROM wg_user");
@@ -42,6 +50,8 @@ class User {
 	/**
 	 * return format:
 	 * [{"name" => "Consul", "focus" => true},{"name" => "Logging", "focus" => false}]
+	 *
+	 * @return array
 	 */
 	public function getProjects() {
 		$dbresult = DB::getAll("SELECT * FROM wg_member WHERE user_name = :name", array(':name' => $this->name));
@@ -52,6 +62,21 @@ class User {
 		return $result;
 	}
 
+	/**
+	 * @return Project[]
+	 */
+	public function getProjectsWithFocus() {
+		$dbresult = DB::getAll("SELECT * FROM wg_member WHERE user_name = :name AND is_focus = 1", array(':name' => $this->name));
+		$result = array();
+		foreach ($dbresult as $row) {
+			$result[] = Project::load($row['project_name']);
+		}
+		return $result;
+	}
+
+	/**
+	 * @return int|null
+	 */
 	public function getFocusCount() {
 		$dbresult = DB::getOne("SELECT COUNT(1) AS cnt FROM wg_member WHERE user_name = :name AND is_focus = 1", array(':name' => $this->name));
 		if (!empty($dbresult)) {
@@ -79,6 +104,10 @@ class User {
 		Event::create($project, $this, 'unfocus', 'Removed focus');
 	}
 
+	/**
+	 * @param Project $project
+	 * @return bool
+	 */
 	public function isMemberOf(Project $project) {
 		$dbresult = DB::getOne("SELECT * FROM wg_member WHERE project_name = :name AND user_name = :user",
 			array(
