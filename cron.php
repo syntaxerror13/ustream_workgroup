@@ -42,7 +42,7 @@ switch ($task) {
 		foreach ($users as $user) {
 			$projects = $user->getProjectsWithFocus();
 			foreach ($projects as $project) {
-				$message = "How successfully could you focus on project " . $project->name . "?\nPlease respond with the 'result' command.";
+				$message = "How successfully could you focus on project " . $project->name . "?\nPlease respond with the 'ratio' command.";
 				$channel = "@" . $user->name;
 				Slack::send($message, $channel);
 			}
