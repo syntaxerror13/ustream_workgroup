@@ -36,6 +36,7 @@ class Project {
 				':owner' => $owner->name,
 				':slackroom' => $slackroom
 			));
+		Event::create($name, $owner, 'start', 'Started project');
 		return new Project($name, $desc, $owner->name);
 	}
 
@@ -76,19 +77,21 @@ class Project {
 		return $result;
 	}
 
-	public function setRoom($slackroom) {
+	public function setRoom($slackroom, User $user) {
 		DB::execute("UPDATE wg_project SET slack_room = :slackroom WHERE project_name = :name",
 			array(
 				':name' => $this->name,
 				':slackroom' => $slackroom
 			));
+		Event::create($this->name, $user->name, 'slackroom', 'Set slackroom to ' . $slackroom);
 	}
 
-	public function setOwner(User $owner) {
+	public function setOwner(User $owner, User $user) {
 		DB::execute("UPDATE wg_project SET owner_name = :owner WHERE project_name = :name",
 			array(
 				':name' => $this->name,
 				':owner' => $owner->name
 			));
+		Event::create($this->name, $user->name, 'owner', 'Set owner to ' . $owner->name);
 	}
 }

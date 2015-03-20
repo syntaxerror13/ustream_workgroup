@@ -179,7 +179,7 @@ EOF;
 				echo "User " . $ownername . " not found\n";
 			} else {
 				$owner->joinProject($project);
-				$project->setOwner($owner);
+				$project->setOwner($owner, $user);
 				echo "Project owner changed successfully\n";
 			}
 		}
@@ -191,7 +191,7 @@ EOF;
 			echo "Project does not exist\n";
 		} else {
 			$slackroom = array_shift($args);
-			$project->setRoom($slackroom);
+			$project->setRoom($slackroom, $user);
 			echo "Project room updated to '" . $slackroom . "'\n";
 		}
 		break;

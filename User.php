@@ -58,6 +58,7 @@ class User {
 				':name' => $project->name,
 				':user' => $this->name
 			));
+		Event::create($project->name, $this->name, 'focus', 'Set focus');
 	}
 
 	public function removeFocus(Project $project) {
@@ -66,6 +67,7 @@ class User {
 				':name' => $project->name,
 				':user' => $this->name
 			));
+		Event::create($project->name, $this->name, 'unfocus', 'Removed focus');
 	}
 
 	public function isMemberOf(Project $project) {
@@ -86,6 +88,7 @@ class User {
 				':name' => $project->name,
 				':user' => $this->name
 			));
+		Event::create($project->name, $this->name, 'join', 'Joined project');
 	}
 
 	public function leaveProject(Project $project) {
@@ -94,5 +97,6 @@ class User {
 				':name' => $project->name,
 				':user' => $this->name
 			));
+		Event::create($project->name, $this->name, 'leave', 'Left project');
 	}
 }
