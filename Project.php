@@ -54,7 +54,7 @@ class Project {
 		$result = array();
 		foreach ($dbresult as $row) {
 			$p = new Project($row['project_name'], $row['description'], $row['owner_name'], $row['slack_room']);
-			$p ->$members = $row['members'];
+			$p -> members = $row['members'];
 			$p -> focusingMembers = $row['fmembers'];
 			$result[] = $p;
 		}
