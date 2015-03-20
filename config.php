@@ -17,3 +17,5 @@ $dbconfig = array(
 );
 
 $prod = true;
+
+$focus_warn_limit = 2;

@@ -52,6 +52,15 @@ class User {
 		return $result;
 	}
 
+	public function getFocusCount() {
+		$dbresult = DB::getOne("SELECT COUNT(1) AS cnt FROM wg_member WHERE user_name = :name AND is_focus = 1", array(':name' => $this->name));
+		if (!empty($dbresult)) {
+			return $dbresult['cnt'];
+		} else {
+			return null;
+		}
+	}
+
 	public function setFocus(Project $project) {
 		DB::execute("UPDATE wg_member SET is_focus = 1 WHERE project_name = :name AND user_name = :user",
 			array(

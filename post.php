@@ -137,6 +137,10 @@ EOF;
 		} else {
 			$user->setFocus($project);
 			echo "Set focus on " . $projectname . "\n";
+			$count = $user->getFocusCount();
+			if ($count > $focus_warn_limit) {
+				echo "Warning: already focusing on " . $count . " projects!\n";
+			}
 		}
 		break;
 	case 'unfocus':
