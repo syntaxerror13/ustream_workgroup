@@ -42,8 +42,9 @@ switch ($command)
 Welcome to WorkGroups.
 Available commands:
 
-* start [project name] ['project description']
+* start [project name] ['project description'] [slack room]
   Starts a new project with the specified name and description. The current user joins the specified project.
+  Slack room is optional, if not specified, it will be the current channel. If the current channel is not set, it will be empty.
 
 * join [project name]
   The current user joins the specified project
@@ -89,7 +90,13 @@ EOF;
 	case 'start':
 		$name = array_shift($args);
 		$desc = array_shift($args);
-		$project = Project::create($name, $desc, $user);
+		$slackroom = array_shift($args);
+		if (empty($slackroom) && !empty($channel)) {
+			$slackroom = "#".$channel;
+		} else {
+			$slackroom = "";
+		}
+		$project = Project::create($name, $desc, $user, $slackroom);
 		echo "Project created\n";
 		$user->joinProject($project);
 		break;
