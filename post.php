@@ -99,7 +99,7 @@ EOF;
 		$desc = array_shift($args);
 		$slackroom = array_shift($args);
 		if (empty($slackroom) && !empty($channel)) {
-			$slackroom = "#".$channel;
+			$slackroom = $channel;
 		} else {
 			$slackroom = "";
 		}
