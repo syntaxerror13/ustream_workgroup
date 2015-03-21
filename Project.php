@@ -110,7 +110,7 @@ class Project {
 				':name' => $this->name,
 				':slackroom' => $slackroom
 			));
-		Event::create($this, $user, 'slackroom', 'Set slackroom to ' . $slackroom);
+		Event::create($this, $user, 'slackroom', $slackroom);
 	}
 
 	public function loadStats()
@@ -135,6 +135,6 @@ class Project {
 				':name' => $this->name,
 				':owner' => $owner->name
 			));
-		Event::create($this, $user, 'owner', 'Set owner to ' . $owner->name);
+		Event::create($this, $user, 'owner', $owner->name);
 	}
 }
