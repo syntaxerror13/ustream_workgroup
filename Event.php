@@ -50,7 +50,7 @@ class Event {
 	{
 		switch ($this->action) {
 			case 'owner':
-				return sprintf("@%s has %s", $this->user, strtolower($this->message));
+				return sprintf("@%s has made '@%s' the owner", $this->user, strtolower($this->message));
 				break;
 			
 			case 'leave':
@@ -70,7 +70,7 @@ class Event {
 				break;
 
 			case 'slackroom':
-				return sprintf("@%s has %s", $this->user, strtolower($this->message));
+				return sprintf("Project %s is now attached to #%s in Slack", $this->project, strtolower($this->message));
 				break;
 
 			case 'update':
@@ -78,11 +78,11 @@ class Event {
 				break;
 
 			case 'start':
-				return sprintf("%s has started project '%'", $this->user, $this->project);
+				return sprintf("%s has started project '%s'", $this->user, $this->project);
 				break;
 
 			case 'ratio':
-				return sprintf("%s has %s", $this->user, strtolower($this->message));
+				return sprintf("%s says his recent focus ratio was %%s", $this->user, strtolower($this->message));
 				break;
 
 			default:
