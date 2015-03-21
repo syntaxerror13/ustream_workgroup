@@ -74,19 +74,19 @@ class Event {
 				break;
 
 			case 'update':
-				return sprintf("%s has logged: %s", $this->user, strtolower($this->message));
+				return sprintf("@%s has logged: %s", $this->user, strtolower($this->message));
 				break;
 
 			case 'start':
-				return sprintf("%s has started project '%s'", $this->user, $this->project);
+				return sprintf("@%s has started project '%s'", $this->user, $this->project);
 				break;
 
 			case 'ratio':
-				return sprintf("%s says his recent focus ratio was %%s", $this->user, strtolower($this->message));
+				return sprintf("@%s says his recent focus success was %s%%", $this->user, strtolower($this->message));
 				break;
 
 			default:
-				return sprintf("%s: %s", $this->user, $this->message);
+				return sprintf("@%s: %s", $this->user, $this->message);
 				break;
 		}
 	}
