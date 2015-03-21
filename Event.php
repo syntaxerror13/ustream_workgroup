@@ -50,7 +50,7 @@ class Event {
 	{
 		switch ($this->action) {
 			case 'owner':
-				return sprintf("@%s has made '@%s' the owner", $this->user, strtolower($this->message));
+				return sprintf("@%s has made @%s the owner", $this->user, strtolower($this->message));
 				break;
 			
 			case 'leave':
