@@ -78,11 +78,11 @@ class Page
 		$routput = '<h2>Recent activity</h2>';
 		foreach ($logs as $l)
 		{
-			$smallActions = array("join", "leave", "focus", "unfocus"); 
+			$smallActions = array("join", "leave", "focus", "unfocus", "slackroom", "ratio", "owner"); 
 			if (array_search($l->action, $smallActions) === false) 
-				$routput .= '<div class="log"><span class="small">'.$l->time.' <a href="index.php?q=user/'.$l->user.'">'.$l->user.'</a></span><br />'.$l->message.'</div>';
+				$routput .= '<div class="log">'.$l->time.' '.$l->formatMessage().'</div>';
 			else
-				$routput .= '<div class="log"><span class="small">'.$l->time.' <a href="index.php?q=user/'.$l->user.'">'.$l->user.'</a> '.$l->message.'</span></div>';
+				$routput .= '<div class="log"><span class="small">'.$l->time.' '.$l->formatMessage().'</span></div>';
 		}
 		if (!count($logs)) 
 		{
