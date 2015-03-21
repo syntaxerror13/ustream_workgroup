@@ -67,6 +67,10 @@ div.owner
 Respnsive media queries
 */
 
+@media screen and (min-resolution: 230dpi) { 
+	.main { font-size:200%; }
+}
+
 @media screen and (min-aspect-ratio: 1/1) { div.content { display: inline-table; width: 46%; }}
 
 @media screen and (min-width:240px) { body { font-size:19%; } }

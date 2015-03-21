@@ -205,12 +205,14 @@ switch ($command['command'])
 	<meta name="viewport" content="width=device-width; initial-scale=1.0" />
 </head>
 <body>
-<div class="header"><h1><?php echo Page::$title; ?><h1></div>
-<div class="content">
-	<div class="padded"><?php echo $output[0]; ?></div>
-</div>	
-<div class="content">
-	<div class="padded"><?php echo $output[1]; ?></div>
-</div>	
+<div class="main">
+	<div class="header"><h1><?php echo Page::$title; ?></h1></div>
+	<div class="content">
+		<div class="padded"><?php echo $output[0]; ?></div>
+	</div>	
+	<div class="content">
+		<div class="padded"><?php echo $output[1]; ?></div>
+	</div>	
+</div>
 </body>
 </html>
