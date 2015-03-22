@@ -140,7 +140,8 @@ class Page
 
 		foreach ($projects as $p)
 		{
-			$output .= '<div class="project"><a href="index.php?q=project/'.$p['name'].'">'.$p['name'].'</a> '.($p['focus'] ? '[x]' : '').'</div>';
+			$output .= '<div class="project"><a href="index.php?q=project/'.$p['name'].'">'.$p['name'].'</a> '.($p['focus'] ? '[x]' : '').
+			'<br /><span class="small">'.$p['fmembers'].' of '.$p['members'].' member(s) focusing</span></div>';
 		}
 		$output .= '<div class="footer"><a href="index.php?q=user">Browse more users...</a></div>';
 		return array($output, '');
