@@ -54,7 +54,9 @@ class User {
 	 * @return array
 	 */
 	public function getProjects() {
-		$dbresult = DB::getAll("SELECT * FROM wg_member WHERE user_name = :name", array(':name' => $this->name));
+		$dbresult = DB::getAll("SELECT m.project_name, m.is_focus, count(mm.user_name) as members, sum(mm.is_focus) AS fmembers ".
+			"FROM wg_member m JOIN wg_member mm ON m.project_name=mm.project_name ".
+			"WHERE m.user_name = :name GROUP BY m.project_name, m.is_focus", array(':name' => $this->name));
 		$result = array();
 		foreach ($dbresult as $row) {
 			$result[] = array('name' => $row['project_name'], 'focus' => ($row['is_focus'] == 1));
