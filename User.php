@@ -59,7 +59,8 @@ class User {
 			"WHERE m.user_name = :name GROUP BY m.project_name, m.is_focus", array(':name' => $this->name));
 		$result = array();
 		foreach ($dbresult as $row) {
-			$result[] = array('name' => $row['project_name'], 'focus' => ($row['is_focus'] == 1));
+			$result[] = array('name' => $row['project_name'], 'focus' => ($row['is_focus'] == 1),
+				'members' => $row['members'], 'fmembers' => $row['fmembers']);
 		}
 		return $result;
 	}
